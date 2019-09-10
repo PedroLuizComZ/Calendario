@@ -10,17 +10,14 @@ routes.get("/", (request, response) => {
 });
 
 routes.post("/event", (request, response) => {
-  const { id } = request.body;
-  const { title } = request.body;
-  const evento = new event
-          evento.save( (err, evento) => {
-            if (err) return console.error(err);
-            evento.speak();
-          });
+  var evento = new event({
+    NomeEvento: "fluffy",
+    Descricao: "fluffy",
+    DataEvento: "fluffy"
+  });
 
   return response.json({
-    id: id,
-    title: title
+    evento
   });
 });
 

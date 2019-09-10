@@ -1,11 +1,9 @@
 const express = require("express");
 
+const routes = require("./routes");
+
 const server = express();
 
-server.use(express.json());
-
-server.get("/calendario", (request, response) => {
-  console.log("Hello World");
-});
+server.use(routes);
 
 server.listen(3333);

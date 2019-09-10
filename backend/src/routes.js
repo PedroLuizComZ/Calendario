@@ -1,4 +1,5 @@
 const express = require("express");
+let event = require("./model/evento");
 
 const routes = express.Router();
 
@@ -11,6 +12,11 @@ routes.get("/", (request, response) => {
 routes.post("/event", (request, response) => {
   const { id } = request.body;
   const { title } = request.body;
+  const evento = new event
+          evento.save( (err, evento) => {
+            if (err) return console.error(err);
+            evento.speak();
+          });
 
   return response.json({
     id: id,

@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 
-const Evento = new Schema(
+const EventoSchema = new Schema(
   {
     //Schema vai montar qual a estrutura do meu BD pra armazenar um DEv dentro
     NomeEvento: {
@@ -21,4 +21,4 @@ const Evento = new Schema(
   }
 );
 
-module.exports = model("Evento", Evento);
+module.exports = model("Evento", EventoSchema);

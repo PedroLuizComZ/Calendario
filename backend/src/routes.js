@@ -1,43 +1,94 @@
 const express = require("express");
-let event = require("./model/evento");
+let Event = require("./model/evento");
 
 const routes = express.Router();
 
 routes.use(express.json());
 
-routes.get("/", (request, response) => {
-  console.log("Hello World");
+routes.get("/", function(request, response) {
+  Event.find({}, (error, eventos) => {
+    if (error) {
+      return response.json({
+        message: error
+      });
+    } else {
+      return response.json({
+        eventos
+      });
+    }
+  });
+});
+
+routes.get("/:_id", function(request, response) {
+  const { _id } = request.params;
+  Event.find({ _id }, (error, evento) => {
+    if (error) {
+      return response.json({
+        message: error
+      });
+    } else {
+      return response.json({
+        evento
+      });
+    }
+  });
 });
 
 routes.post("/event", (request, response) => {
-  var evento = new event({
-    NomeEvento: "fluffy",
-    Descricao: "fluffy",
-    DataEvento: "fluffy"
+  const { NomeEvento } = request.body;
+  const { Descricao } = request.body;
+  const { DataEvento } = request.body;
+
+  let evento = new Event({
+    NomeEvento: NomeEvento,
+    Descricao: Descricao,
+    DataEvento: DataEvento
   });
 
-  return response.json({
-    evento
+  evento.save(error => {
+    if (error) {
+      return response.json({
+        message: error
+      });
+    } else {
+      return response.json({
+        evento
+      });
+    }
   });
 });
 
 routes.delete("/event", (request, response) => {
-  const { id } = request.body;
-  const { title } = request.body;
+  const { _id } = request.body;
 
-  return response.json({
-    id: id,
-    title: title
+  Event.findByIdAndRemove(_id, function(error) {
+    if (error) {
+      return response.json({
+        message: error
+      });
+    } else {
+      return response.json({
+        message: "Usuario apagado com sucesso"
+      });
+    }
   });
 });
 
 routes.put("/event", (request, response) => {
-  const { id } = request.body;
-  const { title } = request.body;
+  const { _id } = request.body;
+  const { Descricao } = request.body;
 
-  return response.json({
-    id: id,
-    title: title
+  Event.findOneAndUpdate({ _id }, { Descricao }, function(error, evento) {
+    if (error) {
+      console.log(error);
+      return response.json({
+        message: error
+      });
+    } else {
+      return response.json({
+        evento
+      });
+    }
   });
 });
 

@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import Calendar from 'react-calendar';
 import './Calendario.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
- 
+import Modals from '../modal/Modals';
+
 class Calendario extends Component {
   state = {
     date: new Date(),
   }
- 
+
   render() {
     return (
       <div className="calendar-container">
@@ -16,14 +17,19 @@ class Calendario extends Component {
           onClickDay={this.showEvent}
           value={this.state.date}
         />
+        <Modals />
+        
       </div>
     );
   }
 
+
   onChange = date => this.setState({ date })
 
   showEvent = () => {
-    console.log("CLiquei no dia")
+    this.setState({
+      show:true,
+   });
   }
 }
 

@@ -1,0 +1,19 @@
+body {
+  background: #eeeeee;
+}
+
+.login-container {
+  width: 350px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+}
+
+.login-card {
+  border: solid 4px #007bff;
+  background: #dcdcdc;
+  padding: 25px;
+  border-radius: 8px;
+}

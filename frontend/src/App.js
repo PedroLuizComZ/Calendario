@@ -1,10 +1,9 @@
 import React from 'react';
-import Calendario from './components/calendario/Calendario'
-
+import Routes from './routes'
 
 function App() {
   return (
-    <Calendario />
+    <Routes />
   );
 }
 

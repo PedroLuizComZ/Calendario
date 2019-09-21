@@ -1,9 +1,19 @@
 const express = require("express");
 let Event = require("./model/evento");
+let User = require("./model/usuario");
 
 const routes = express.Router();
 
 routes.use(express.json());
+
+routes.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 
 routes.get("/", function(request, response) {
   Event.find({}, (error, eventos) => {
@@ -87,6 +97,29 @@ routes.put("/event", (request, response) => {
     } else {
       return response.json({
         evento
+      });
+    }
+  });
+});
+
+routes.post("/user", (request, response) => {
+  console.log(request);
+  const { usuario } = request.body;
+  const { senha } = request.body;
+
+  let user = new User({
+    usuario: usuario,
+    senha: senha
+  });
+
+  user.save(error => {
+    if (error) {
+      return response.json({
+        message: error
+      });
+    } else {
+      return response.json({
+        user
       });
     }
   });

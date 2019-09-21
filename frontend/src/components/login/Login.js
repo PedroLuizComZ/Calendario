@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import { Form , Button} from 'react-bootstrap'
+import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Login.css';
 
 class Login extends Component {
     constructor(props){
         super(props);
+
+        this.state = {
+            'usuario': "",
+            'senha' : ''
+        };
 
     }
 
@@ -34,8 +40,21 @@ class Login extends Component {
   }
 
   Validade(){
-      console.log(this);
-      this.props.history.push('calendario');
+    axios({
+        method: 'post',
+        url: 'http://localhost:3333/user',
+        data: {
+            'usuario' : this.state.usuario,
+            'senha' : this.state.senha
+        }
+      })
+      .then( (response ) => {
+        console.log(response);
+      })
+      .catch( (error ) => {
+        console.log(error);
+      })
+    //   this.props.history.push('calendario');
   }
 }
 
